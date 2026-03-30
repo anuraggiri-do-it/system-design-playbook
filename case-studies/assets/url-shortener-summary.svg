@@ -1,0 +1,202 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" font-family="monospace, sans-serif">
+
+  <!-- Background -->
+  <rect width="900" height="1200" fill="#0f172a"/>
+
+  <!-- Title -->
+  <rect x="20" y="15" width="860" height="50" rx="8" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
+  <text x="450" y="47" text-anchor="middle" fill="#a5b4fc" font-size="22" font-weight="bold">🔗 URL SHORTENER — System Design Summary</text>
+
+  <!-- ─── SECTION 1: Features ─── -->
+  <rect x="20" y="80" width="260" height="180" rx="8" fill="#1e293b" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="150" y="103" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="bold">✦ FEATURES</text>
+  <line x1="30" y1="110" x2="270" y2="110" stroke="#22d3ee" stroke-width="0.5"/>
+  <text x="35" y="130" fill="#94a3b8" font-size="11">• Shorten long URLs → short code</text>
+  <text x="35" y="150" fill="#94a3b8" font-size="11">• Custom aliases (memorable)</text>
+  <text x="35" y="170" fill="#94a3b8" font-size="11">• Analytics (clicks + timestamps)</text>
+  <text x="35" y="190" fill="#94a3b8" font-size="11">• Expiration dates on URLs</text>
+  <text x="35" y="215" fill="#64748b" font-size="10" font-style="italic">Core: shorten → redirect → track</text>
+
+  <!-- ─── SECTION 2: Usages ─── -->
+  <rect x="295" y="80" width="260" height="180" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="425" y="103" text-anchor="middle" fill="#f59e0b" font-size="13" font-weight="bold">✦ USAGES</text>
+  <line x1="305" y1="110" x2="545" y2="110" stroke="#f59e0b" stroke-width="0.5"/>
+  <text x="310" y="130" fill="#94a3b8" font-size="11">• Social Media (Twitter char limits)</text>
+  <text x="310" y="150" fill="#94a3b8" font-size="11">• Marketing campaigns (tracking)</text>
+  <text x="310" y="170" fill="#94a3b8" font-size="11">• Non-digital: billboards, cards</text>
+  <text x="310" y="190" fill="#94a3b8" font-size="11">• Link management &amp; organization</text>
+  <text x="310" y="215" fill="#64748b" font-size="10" font-style="italic">Digital + Physical world use cases</text>
+
+  <!-- ─── SECTION 3: Scale Estimates ─── -->
+  <rect x="570" y="80" width="310" height="180" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+  <text x="725" y="103" text-anchor="middle" fill="#34d399" font-size="13" font-weight="bold">✦ BACK-OF-ENVELOPE (Step 2)</text>
+  <line x1="580" y1="110" x2="870" y2="110" stroke="#34d399" stroke-width="0.5"/>
+  <text x="585" y="130" fill="#94a3b8" font-size="11">Daily writes   →  100M URLs/day</text>
+  <text x="585" y="150" fill="#94a3b8" font-size="11">Read/Write     →  10:1 ratio</text>
+  <text x="585" y="170" fill="#94a3b8" font-size="11">Daily reads    →  1B reads/day</text>
+  <text x="585" y="190" fill="#94a3b8" font-size="11">Retention      →  10 years</text>
+  <text x="585" y="210" fill="#94a3b8" font-size="11">Short code     →  7 characters</text>
+
+  <!-- ─── SECTION 4: API Design ─── -->
+  <rect x="20" y="280" width="860" height="200" rx="8" fill="#1e293b" stroke="#818cf8" stroke-width="1.5"/>
+  <text x="450" y="303" text-anchor="middle" fill="#818cf8" font-size="13" font-weight="bold">✦ API DESIGN (Step 3)</text>
+  <line x1="30" y1="310" x2="870" y2="310" stroke="#818cf8" stroke-width="0.5"/>
+
+  <!-- POST flow -->
+  <rect x="40" y="320" width="380" height="140" rx="6" fill="#0f172a" stroke="#6366f1" stroke-width="1"/>
+  <text x="230" y="340" text-anchor="middle" fill="#6366f1" font-size="11" font-weight="bold">POST /api/v1/data/shorten</text>
+  <text x="55" y="360" fill="#94a3b8" font-size="10">Client → POST(long URL) → Server</text>
+  <text x="55" y="378" fill="#34d399" font-size="10">1. Client sends long URL</text>
+  <text x="55" y="395" fill="#34d399" font-size="10">2a. Server generates short code</text>
+  <text x="55" y="412" fill="#34d399" font-size="10">2b. Stores mapping (short → long)</text>
+  <text x="55" y="429" fill="#34d399" font-size="10">3. Server responds with short URL</text>
+  <text x="55" y="448" fill="#f59e0b" font-size="10" font-style="italic">→ WRITE path</text>
+
+  <!-- GET flow -->
+  <rect x="460" y="320" width="380" height="140" rx="6" fill="#0f172a" stroke="#22d3ee" stroke-width="1"/>
+  <text x="650" y="340" text-anchor="middle" fill="#22d3ee" font-size="11" font-weight="bold">GET /api/v1/{"{shortUrl}"}</text>
+  <text x="475" y="360" fill="#94a3b8" font-size="10">User clicks short URL → Browser GET</text>
+  <text x="475" y="378" fill="#34d399" font-size="10">1. User opens short URL</text>
+  <text x="475" y="395" fill="#34d399" font-size="10">2. Server looks up long URL</text>
+  <text x="475" y="412" fill="#34d399" font-size="10">3. HTTP 301 (permanent) or</text>
+  <text x="475" y="429" fill="#34d399" font-size="10">   HTTP 302 (temporary) redirect</text>
+  <text x="475" y="448" fill="#f59e0b" font-size="10" font-style="italic">→ READ path (10x more frequent)</text>
+
+  <!-- ─── SECTION 5: Async Analytics Flow ─── -->
+  <rect x="20" y="500" width="860" height="220" rx="8" fill="#1e293b" stroke="#f472b6" stroke-width="1.5"/>
+  <text x="450" y="523" text-anchor="middle" fill="#f472b6" font-size="13" font-weight="bold">✦ ASYNC ANALYTICS — Critical Insight</text>
+  <line x1="30" y1="530" x2="870" y2="530" stroke="#f472b6" stroke-width="0.5"/>
+
+  <!-- Flow boxes -->
+  <!-- Box 1 -->
+  <rect x="50" y="545" width="130" height="50" rx="6" fill="#312e81" stroke="#818cf8" stroke-width="1.5"/>
+  <text x="115" y="566" text-anchor="middle" fill="#a5b4fc" font-size="11" font-weight="bold">User Clicks</text>
+  <text x="115" y="583" text-anchor="middle" fill="#94a3b8" font-size="10">Short URL</text>
+
+  <!-- Arrow -->
+  <line x1="180" y1="570" x2="220" y2="570" stroke="#818cf8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Box 2 -->
+  <rect x="220" y="545" width="140" height="50" rx="6" fill="#312e81" stroke="#818cf8" stroke-width="1.5"/>
+  <text x="290" y="566" text-anchor="middle" fill="#a5b4fc" font-size="11" font-weight="bold">API Receives</text>
+  <text x="290" y="583" text-anchor="middle" fill="#94a3b8" font-size="10">GET Request</text>
+
+  <!-- Arrow down to Kafka -->
+  <line x1="290" y1="595" x2="290" y2="640" stroke="#f472b6" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrPink)"/>
+  <text x="295" y="625" fill="#f472b6" font-size="9">fire &amp; forget</text>
+
+  <!-- Kafka box -->
+  <rect x="210" y="640" width="160" height="45" rx="6" fill="#1e1b4b" stroke="#f472b6" stroke-width="1.5"/>
+  <text x="290" y="658" text-anchor="middle" fill="#f472b6" font-size="11" font-weight="bold">Kafka Queue</text>
+  <text x="290" y="675" text-anchor="middle" fill="#94a3b8" font-size="9">async — does NOT block</text>
+
+  <!-- Arrow from Kafka to processor -->
+  <line x1="370" y1="662" x2="420" y2="662" stroke="#f472b6" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrPink)"/>
+
+  <!-- Processor box -->
+  <rect x="420" y="640" width="160" height="45" rx="6" fill="#1e1b4b" stroke="#f472b6" stroke-width="1.5"/>
+  <text x="500" y="658" text-anchor="middle" fill="#f472b6" font-size="11" font-weight="bold">Analytics Worker</text>
+  <text x="500" y="675" text-anchor="middle" fill="#94a3b8" font-size="9">processed later, separately</text>
+
+  <!-- Arrow from API to Redirect (main path) -->
+  <line x1="360" y1="570" x2="410" y2="570" stroke="#34d399" stroke-width="2" marker-end="url(#arrGreen)"/>
+
+  <!-- Box 3 -->
+  <rect x="410" y="545" width="140" height="50" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="1.5"/>
+  <text x="480" y="566" text-anchor="middle" fill="#34d399" font-size="11" font-weight="bold">Redirect User</text>
+  <text x="480" y="583" text-anchor="middle" fill="#94a3b8" font-size="10">301 / 302 instantly</text>
+
+  <!-- Key insight label -->
+  <rect x="600" y="545" width="260" height="145" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="730" y="565" text-anchor="middle" fill="#f59e0b" font-size="11" font-weight="bold">⚡ Why Async Matters</text>
+  <text x="615" y="585" fill="#94a3b8" font-size="10">• Redirect is latency-critical</text>
+  <text x="615" y="603" fill="#94a3b8" font-size="10">• Analytics is NOT latency-critical</text>
+  <text x="615" y="621" fill="#94a3b8" font-size="10">• Kafka decouples the two paths</text>
+  <text x="615" y="639" fill="#94a3b8" font-size="10">• User never waits for analytics</text>
+  <text x="615" y="657" fill="#94a3b8" font-size="10">• System stays fast at scale</text>
+  <text x="615" y="678" fill="#f59e0b" font-size="10" font-style="italic">→ 1B reads/day needs this!</text>
+
+  <!-- ─── SECTION 6: Design Scope ─── -->
+  <rect x="20" y="740" width="860" height="130" rx="8" fill="#1e293b" stroke="#fb923c" stroke-width="1.5"/>
+  <text x="450" y="763" text-anchor="middle" fill="#fb923c" font-size="13" font-weight="bold">✦ DESIGN SCOPE (Step 1) — Questions to Ask in Interview</text>
+  <line x1="30" y1="770" x2="870" y2="770" stroke="#fb923c" stroke-width="0.5"/>
+  <text x="50" y="793" fill="#94a3b8" font-size="11">• What are the core features?  (shorten, redirect, analytics, expiry, custom alias)</text>
+  <text x="50" y="813" fill="#94a3b8" font-size="11">• Who is the target audience?  (developers, marketers, general public)</text>
+  <text x="50" y="833" fill="#94a3b8" font-size="11">• What is the expected traffic?  (100M writes/day → 1B reads/day)</text>
+  <text x="50" y="853" fill="#94a3b8" font-size="11">• Security concerns?  (abuse prevention, spam URLs, data protection)</text>
+
+  <!-- ─── SECTION 7: 301 vs 302 ─── -->
+  <rect x="20" y="890" width="420" height="130" rx="8" fill="#1e293b" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="230" y="913" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="bold">✦ 301 vs 302 Redirect</text>
+  <line x1="30" y1="920" x2="430" y2="920" stroke="#22d3ee" stroke-width="0.5"/>
+  <text x="40" y="942" fill="#34d399" font-size="11" font-weight="bold">301 Permanent</text>
+  <text x="40" y="960" fill="#94a3b8" font-size="10">Browser caches → less server load</text>
+  <text x="40" y="977" fill="#94a3b8" font-size="10">BUT analytics misses repeat visits</text>
+  <text x="40" y="1000" fill="#f59e0b" font-size="11" font-weight="bold">302 Temporary</text>
+  <text x="40" y="1018" fill="#94a3b8" font-size="10">Every click hits server → full analytics</text>
+
+  <!-- ─── SECTION 8: Short Code Math ─── -->
+  <rect x="460" y="890" width="420" height="130" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+  <text x="670" y="913" text-anchor="middle" fill="#34d399" font-size="13" font-weight="bold">✦ 7-Char Code — Why Enough?</text>
+  <line x1="470" y1="920" x2="870" y2="920" stroke="#34d399" stroke-width="0.5"/>
+  <text x="480" y="942" fill="#94a3b8" font-size="11">Charset: [a-z A-Z 0-9] = 62 chars</text>
+  <text x="480" y="962" fill="#94a3b8" font-size="11">62⁷ = ~3.5 Trillion combinations</text>
+  <text x="480" y="982" fill="#94a3b8" font-size="11">100M/day × 365 × 10yr = 365B URLs</text>
+  <text x="480" y="1002" fill="#34d399" font-size="11" font-weight="bold">3.5T &gt;&gt; 365B  ✓ Safe margin</text>
+
+  <!-- ─── FLOW SUMMARY ─── -->
+  <rect x="20" y="1040" width="860" height="140" rx="8" fill="#1e293b" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="450" y="1063" text-anchor="middle" fill="#6366f1" font-size="13" font-weight="bold">✦ END-TO-END FLOW SUMMARY</text>
+  <line x1="30" y1="1070" x2="870" y2="1070" stroke="#6366f1" stroke-width="0.5"/>
+
+  <!-- Flow row -->
+  <rect x="35" y="1082" width="100" height="36" rx="5" fill="#312e81" stroke="#818cf8" stroke-width="1"/>
+  <text x="85" y="1097" text-anchor="middle" fill="#a5b4fc" font-size="10">User inputs</text>
+  <text x="85" y="1111" text-anchor="middle" fill="#a5b4fc" font-size="10">long URL</text>
+  <text x="140" y="1102" fill="#818cf8" font-size="14">→</text>
+
+  <rect x="148" y="1082" width="100" height="36" rx="5" fill="#312e81" stroke="#818cf8" stroke-width="1"/>
+  <text x="198" y="1097" text-anchor="middle" fill="#a5b4fc" font-size="10">POST API</text>
+  <text x="198" y="1111" text-anchor="middle" fill="#a5b4fc" font-size="10">generates code</text>
+  <text x="253" y="1102" fill="#818cf8" font-size="14">→</text>
+
+  <rect x="261" y="1082" width="100" height="36" rx="5" fill="#312e81" stroke="#818cf8" stroke-width="1"/>
+  <text x="311" y="1097" text-anchor="middle" fill="#a5b4fc" font-size="10">DB stores</text>
+  <text x="311" y="1111" text-anchor="middle" fill="#a5b4fc" font-size="10">short→long</text>
+  <text x="366" y="1102" fill="#818cf8" font-size="14">→</text>
+
+  <rect x="374" y="1082" width="100" height="36" rx="5" fill="#312e81" stroke="#818cf8" stroke-width="1"/>
+  <text x="424" y="1097" text-anchor="middle" fill="#a5b4fc" font-size="10">User shares</text>
+  <text x="424" y="1111" text-anchor="middle" fill="#a5b4fc" font-size="10">short URL</text>
+  <text x="479" y="1102" fill="#818cf8" font-size="14">→</text>
+
+  <rect x="487" y="1082" width="100" height="36" rx="5" fill="#312e81" stroke="#818cf8" stroke-width="1"/>
+  <text x="537" y="1097" text-anchor="middle" fill="#a5b4fc" font-size="10">GET request</text>
+  <text x="537" y="1111" text-anchor="middle" fill="#a5b4fc" font-size="10">hits server</text>
+  <text x="592" y="1102" fill="#818cf8" font-size="14">→</text>
+
+  <rect x="600" y="1082" width="100" height="36" rx="5" fill="#064e3b" stroke="#34d399" stroke-width="1"/>
+  <text x="650" y="1097" text-anchor="middle" fill="#34d399" font-size="10">301/302</text>
+  <text x="650" y="1111" text-anchor="middle" fill="#34d399" font-size="10">redirect</text>
+  <text x="705" y="1102" fill="#818cf8" font-size="14">→</text>
+
+  <rect x="713" y="1082" width="100" height="36" rx="5" fill="#1e1b4b" stroke="#f472b6" stroke-width="1"/>
+  <text x="763" y="1097" text-anchor="middle" fill="#f472b6" font-size="10">Kafka logs</text>
+  <text x="763" y="1111" text-anchor="middle" fill="#f472b6" font-size="10">analytics async</text>
+
+  <text x="450" y="1160" text-anchor="middle" fill="#475569" font-size="10">system-design-playbook • URL Shortener Case Study</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#818cf8"/>
+    </marker>
+    <marker id="arrGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#34d399"/>
+    </marker>
+    <marker id="arrPink" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#f472b6"/>
+    </marker>
+  </defs>
+
+</svg>

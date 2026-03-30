@@ -1,0 +1,87 @@
+<svg viewBox="0 0 860 520" xmlns="http://www.w3.org/2000/svg" font-family="monospace" font-size="13">
+
+  <rect width="860" height="520" rx="12" fill="#0f172a"/>
+
+  <!-- LEFT: MNC -->
+  <rect x="20" y="10" width="390" height="500" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="215" y="38" text-anchor="middle" fill="#38bdf8" font-size="14" font-weight="bold">MNC Built-in Shortener</text>
+  <text x="215" y="56" text-anchor="middle" fill="#94a3b8" font-size="11">(e.g. Bitly, TinyURL)</text>
+
+  <rect x="155" y="70" width="120" height="36" rx="6" fill="#0369a1"/>
+  <text x="215" y="93" text-anchor="middle" fill="#fff">User Clicks Link</text>
+  <line x1="215" y1="106" x2="215" y2="130" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="120" y="130" width="190" height="36" rx="6" fill="#075985"/>
+  <text x="215" y="153" text-anchor="middle" fill="#fff">MNC Redirect Server</text>
+  <line x1="215" y1="166" x2="215" y2="190" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="100" y="190" width="230" height="36" rx="6" fill="#0c4a6e"/>
+  <text x="215" y="213" text-anchor="middle" fill="#bae6fd">Internal Analytics Engine</text>
+  <line x1="215" y1="226" x2="215" y2="250" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="120" y="250" width="190" height="36" rx="6" fill="#164e63"/>
+  <text x="215" y="273" text-anchor="middle" fill="#7dd3fc">Proprietary Analytics DB</text>
+  <line x1="215" y1="286" x2="215" y2="310" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="130" y="310" width="170" height="36" rx="6" fill="#0369a1"/>
+  <text x="215" y="333" text-anchor="middle" fill="#fff">Dashboard API</text>
+  <line x1="215" y1="346" x2="215" y2="370" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="130" y="370" width="170" height="36" rx="6" fill="#1d4ed8"/>
+  <text x="215" y="393" text-anchor="middle" fill="#fff">API Consumer (You)</text>
+
+  <rect x="40" y="420" width="350" height="72" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-dasharray="4"/>
+  <text x="215" y="440" text-anchor="middle" fill="#94a3b8" font-size="11">✦ Analytics collected &amp; stored internally</text>
+  <text x="215" y="456" text-anchor="middle" fill="#94a3b8" font-size="11">✦ You query via their API (rate-limited)</text>
+  <text x="215" y="472" text-anchor="middle" fill="#94a3b8" font-size="11">✦ No raw data access — only aggregated</text>
+  <text x="215" y="488" text-anchor="middle" fill="#94a3b8" font-size="11">✦ Vendor lock-in on analytics schema</text>
+
+  <!-- RIGHT: Individual -->
+  <rect x="450" y="10" width="390" height="500" rx="10" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="645" y="38" text-anchor="middle" fill="#4ade80" font-size="14" font-weight="bold">Individual Service Provider</text>
+  <text x="645" y="56" text-anchor="middle" fill="#94a3b8" font-size="11">(Self-hosted / Custom built)</text>
+
+  <rect x="585" y="70" width="120" height="36" rx="6" fill="#166534"/>
+  <text x="645" y="93" text-anchor="middle" fill="#fff">User Clicks Link</text>
+  <line x1="645" y1="106" x2="645" y2="130" stroke="#4ade80" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="550" y="130" width="190" height="36" rx="6" fill="#14532d"/>
+  <text x="645" y="153" text-anchor="middle" fill="#fff">Your Redirect Server</text>
+  <line x1="645" y1="166" x2="645" y2="190" stroke="#4ade80" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="530" y="190" width="230" height="36" rx="6" fill="#052e16"/>
+  <text x="645" y="213" text-anchor="middle" fill="#86efac">Event Bus / Message Queue</text>
+  <line x1="645" y1="226" x2="645" y2="250" stroke="#4ade80" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="530" y="250" width="230" height="36" rx="6" fill="#14532d"/>
+  <text x="645" y="273" text-anchor="middle" fill="#bbf7d0">Analytics Microservice</text>
+  <line x1="645" y1="286" x2="645" y2="310" stroke="#4ade80" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="550" y="310" width="190" height="36" rx="6" fill="#052e16"/>
+  <text x="645" y="333" text-anchor="middle" fill="#86efac">Your Own DB (raw events)</text>
+  <line x1="645" y1="346" x2="645" y2="370" stroke="#4ade80" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="555" y="370" width="180" height="36" rx="6" fill="#166534"/>
+  <text x="645" y="393" text-anchor="middle" fill="#fff">Your REST / GraphQL API</text>
+
+  <rect x="470" y="420" width="350" height="72" rx="6" fill="#0f172a" stroke="#4ade80" stroke-dasharray="4"/>
+  <text x="645" y="440" text-anchor="middle" fill="#94a3b8" font-size="11">✦ Full raw event access (IP, UA, timestamp)</text>
+  <text x="645" y="456" text-anchor="middle" fill="#94a3b8" font-size="11">✦ No rate limits — your infra, your rules</text>
+  <text x="645" y="472" text-anchor="middle" fill="#94a3b8" font-size="11">✦ Custom schema &amp; retention policies</text>
+  <text x="645" y="488" text-anchor="middle" fill="#94a3b8" font-size="11">✦ Higher ops cost, full control</text>
+
+  <!-- VS divider -->
+  <line x1="430" y1="30" x2="430" y2="490" stroke="#475569" stroke-width="1" stroke-dasharray="6"/>
+  <rect x="410" y="240" width="40" height="28" rx="6" fill="#334155"/>
+  <text x="430" y="259" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="bold">VS</text>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4ade80"/>
+    </marker>
+  </defs>
+
+</svg>

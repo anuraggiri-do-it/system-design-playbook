@@ -68,3 +68,18 @@ What happens:
 Server:
 Looks up long URL
 Responds with HTTP redirect (301/302)
+ #  the http redirec5t have some meaning.  why? -because 
+- 301 Moved Permanently: Indicates that the resource has been permanently moved to a new  long URL. Search engines will update their indexes to reflect the new URL.
+# while
+- 302 Found (or Moved Temporarily): Indicates that the resource is temporarily located at a long URL. by this method every request go through the  shortnening service  and  it has advantage to store every request made by the user to perform the anlytics  
+# advantages and disdvantages of 301 and 302
+| Status Code | Advantages | Disadvantages |
+|-301         |less load to services provider server |only have one time record of rediorection|
+|302          |can track every request to short url |more load to services provider server|
+
+## STEP 3
+# Database Design OR wAY TO STORE DATA
+# USING THE HASH FUNCTION 
+- Hash the long URL to generate a unique short code.
+- Store the mapping of short code to long URL in a database.
+- Ensure that the hash function produces a unique short code for each long URL to avoid collisions.

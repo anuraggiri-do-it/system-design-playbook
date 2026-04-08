@@ -1,7 +1,6 @@
 # THE URL SHORTNER
 ## Introduction
-The URL shortener is a web application OR A mechanism that allows users to
- shorten long URLs into more manageable and short url
+A URL shortener is a service that converts a long URL into a shorter one by generating a unique alias and mapping it to the original URL.
 ## Features
 - Shorten long URLs: Users can input a long URL and receive a shortened version that redirects
 - Custom aliases: Users can choose custom aliases for their shortened URLs, making them more memorable and easier to share.

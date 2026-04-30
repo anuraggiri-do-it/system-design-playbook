@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- ═══════════════════════════════════════════
+         TITLE
+    ═══════════════════════════════════════════ -->
+    <mxCell id="title" value="Notification System — System Design (Alex Xu, System Design Interview Ch.10)"
+      style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=16;fontStyle=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="300" y="20" width="1000" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════
+         SERVICES (Producers)
+    ═══════════════════════════════════════════ -->
+    <mxCell id="svc_group" value="Services (Producers)"
+      style="swimlane;startSize=28;fillColor=#f5f5f5;strokeColor=#666;fontSize=12;fontStyle=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="40" y="80" width="160" height="320" as="geometry" />
+    </mxCell>
+
+    <mxCell id="svc1" value="Service 1"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;"
+      vertex="1" parent="svc_group">
+      <mxGeometry x="20" y="45" width="120" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="svc2" value="Service 2"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;"
+      vertex="1" parent="svc_group">
+      <mxGeometry x="20" y="105" width="120" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="svc3" value="Service 3"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;"
+      vertex="1" parent="svc_group">
+      <mxGeometry x="20" y="165" width="120" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="svcN" value="Service N"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;"
+      vertex="1" parent="svc_group">
+      <mxGeometry x="20" y="255" width="120" height="40" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════
+         NOTIFICATION SERVICE
+    ═══════════════════════════════════════════ -->
+    <mxCell id="notif_svc" value="Notification Service&#xa;&#xa;• Validates request&#xa;• Fetches user settings&#xa;• Builds notification payload&#xa;• Sends to correct queue"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1;align=center;verticalAlign=top;"
+      vertex="1" parent="1">
+      <mxGeometry x="290" y="100" width="220" height="130" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════
+         USER INFO / SETTINGS DB
+    ═══════════════════════════════════════════ -->
+    <mxCell id="userdb" value="User Info DB&#xa;(device tokens, email,&#xa;phone, preferences)"
+      style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;"
+      vertex="1" parent="1">
+      <mxGeometry x="290" y="280" width="220" height="80" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════
+         MESSAGE QUEUES
+    ═══════════════════════════════════════════ -->
+    <mxCell id="q_group" value="Message Queues (decouples senders from workers)"
+      style="swimlane;startSize=28;fillColor=#f5f5f5;strokeColor=#666;fontSize=12;fontStyle=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="620" y="80" width="220" height="320" as="geometry" />
+    </mxCell>
+
+    <mxCell id="q_ios" value="iOS Queue"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;"
+      vertex="1" parent="q_group">
+      <mxGeometry x="30" y="45" width="160" height="35" as="geometry" />
+    </mxCell>
+    <mxCell id="q_android" value="Android Queue"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;"
+      vertex="1" parent="q_group">
+      <mxGeometry x="30" y="100" width="160" height="35" as="geometry" />
+    </mxCell>
+    <mxCell id="q_sms" value="SMS Queue"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;"
+      vertex="1" parent="q_group">
+      <mxGeometry x="30" y="155" width="160" height="35" as="geometry" />
+    </mxCell>
+    <mxCell id="q_email" value="Email Queue"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;"
+      vertex="1" parent="q_group">
+      <mxGeometry x="30" y="210" width="160" height="35" as="geometry" />
+    </mxCell>
+    <mxCell id="q_note" value="Buffers spikes&#xa;Retries on failure"
+      style="text;html=1;fontSize=9;fillColor=none;strokeColor=none;fontStyle=2;align=center;"
+      vertex="1" parent="q_group">
+      <mxGeometry x="20" y="265" width="180" height="35" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════
+         WORKERS
+    ═══════════════════════════════════════════ -->
+    <mxCell id="w_group" value="Workers (pull from queues)"
+      style="swimlane;startSize=28;fillColor=#f5f5f5;strokeColor=#666;fontSize=12;fontStyle=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="940" y="80" width="200" height="320" as="geometry" />
+    </mxCell>
+
+    <mxCell id="w_ios" value="iOS Worker"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;"
+      vertex="1" parent="w_group">
+      <mxGeometry x="20" y="45" width="160" height="35" as="geometry" />
+    </mxCell>
+    <mxCell id="w_android" value="Android Worker"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;"
+      vertex="1" parent="w_group">
+      <mxGeometry x="20" y="100" width="160" height="35" as="geometry" />
+    </mxCell>
+    <mxCell id="w_sms" value="SMS Worker"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;"
+      vertex="1" parent="w_group">
+      <mxGeometry x="20" y="155" width="160" height="35" as="geometry" />
+    </mxCell>
+    <mxCell id="w_email" value="Email Worker"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;"
+      vertex="1" parent="w_group">
+      <mxGeometry x="20" y="210" width="160" height="35" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════
+         THIRD-PARTY PROVIDERS
+    ═══════════════════════════════════════════ -->
+    <mxCell id="tp_group" value="Third-Party Providers"
+      style="swimlane;startSize=28;fillColor=#f5f5f5;strokeColor=#666;fontSize=12;fontStyle=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="1240" y="80" width="200" height="320" as="geometry" />
+    </mxCell>
+
+    <mxCell id="apns" value="APNs&#xa;(Apple Push)"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;"
+      vertex="1" parent="tp_group">
+      <mxGeometry x="20" y="45" width="160" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="fcm" value="FCM&#xa;(Firebase / Google)"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;"
+      vertex="1" parent="tp_group">
+      <mxGeometry x="20" y="105" width="160" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="twilio" value="Twilio / Nexmo&#xa;(SMS)"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;"
+      vertex="1" parent="tp_group">
+      <mxGeometry x="20" y="165" width="160" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="sendgrid" value="SendGrid / Mailchimp&#xa;(Email)"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;"
+      vertex="1" parent="tp_group">
+      <mxGeometry x="20" y="225" width="160" height="40" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════
+         DEVICES (end users)
+    ═══════════════════════════════════════════ -->
+    <mxCell id="dev_group" value="End User Devices"
+      style="swimlane;startSize=28;fillColor=#f5f5f5;strokeColor=#666;fontSize=12;fontStyle=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="1240" y="480" width="200" height="280" as="geometry" />
+    </mxCell>
+
+    <mxCell id="ios_dev" value="iOS Device"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;"
+      vertex="1" parent="dev_group">
+      <mxGeometry x="20" y="40" width="160" height="35" as="geometry" />
+    </mxCell>
+    <mxCell id="android_dev" value="Android Device"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;"
+      vertex="1" parent="dev_group">
+      <mxGeometry x="20" y="90" width="160" height="35" as="geometry" />
+    </mxCell>
+    <mxCell id="sms_dev" value="SMS / Phone"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;"
+      vertex="1" parent="dev_group">
+      <mxGeometry x="20" y="140" width="160" height="35" as="geometry" />
+    </mxCell>
+    <mxCell id="email_dev" value="Email Client"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;"
+      vertex="1" parent="dev_group">
+      <mxGeometry x="20" y="190" width="160" height="35" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════
+         NOTIFICATION LOG DB  (reliability)
+    ═══════════════════════════════════════════ -->
+    <mxCell id="logdb" value="Notification Log DB&#xa;(persists every notification&#xa;for retry + dedup)"
+      style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;"
+      vertex="1" parent="1">
+      <mxGeometry x="620" y="480" width="220" height="80" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════
+         CACHE  (user settings / device tokens)
+    ═══════════════════════════════════════════ -->
+    <mxCell id="cache" value="Cache (Redis)&#xa;user settings + device tokens&#xa;reduces DB hits"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;"
+      vertex="1" parent="1">
+      <mxGeometry x="290" y="480" width="220" height="75" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════
+         EDGES
+    ═══════════════════════════════════════════ -->
+
+    <!-- Services → Notification Service -->
+    <mxCell id="e1" value="trigger notification"
+      style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=10;strokeColor=#6c8ebf;"
+      edge="1" source="svc_group" target="notif_svc" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Notification Service → User Info DB -->
+    <mxCell id="e2" value="fetch device token / prefs"
+      style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=10;strokeColor=#d6b656;"
+      edge="1" source="notif_svc" target="userdb" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Notification Service → Cache -->
+    <mxCell id="e3" value="check cache first"
+      style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=10;strokeColor=#d6b656;dashed=1;"
+      edge="1" source="notif_svc" target="cache" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Notification Service → Queues -->
+    <mxCell id="e4" value="enqueue by type"
+      style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=10;strokeColor=#82b366;"
+      edge="1" source="notif_svc" target="q_group" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Queues → Workers -->
+    <mxCell id="e5" value="pull"
+      style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=10;strokeColor=#82b366;"
+      edge="1" source="q_group" target="w_group" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Workers → Third-Party Providers -->
+    <mxCell id="e6" value="send via API"
+      style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=10;strokeColor=#9673a6;"
+      edge="1" source="w_group" target="tp_group" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Third-Party Providers → Devices -->
+    <mxCell id="e7" value="deliver"
+      style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=10;strokeColor=#6c8ebf;"
+      edge="1" source="tp_group" target="dev_group" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Workers → Notification Log DB (persist + retry) -->
+    <mxCell id="e8" value="log + retry on fail"
+      style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=10;strokeColor=#b85450;dashed=1;"
+      edge="1" source="w_group" target="logdb" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════
+         BOOK NOTES
+    ═══════════════════════════════════════════ -->
+    <mxCell id="note1" value="📌 Book Key Points&#xa;─────────────────────────────&#xa;• Each notification type has its own queue → no single point of failure&#xa;• Workers are stateless → easy to scale horizontally&#xa;• Retry with exponential backoff on 3rd-party failure&#xa;• Dedup: check notification log before sending (idempotency key)&#xa;• Rate limit per user to avoid spamming&#xa;• User opt-out settings respected before enqueue"
+      style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;fontSize=11;rounded=1;verticalAlign=top;"
+      vertex="1" parent="1">
+      <mxGeometry x="40" y="500" width="220" height="160" as="geometry" />
+    </mxCell>
+
+    <mxCell id="note2" value="📌 Notification Types (book)&#xa;─────────────────────────────&#xa;• Mobile push  → APNs (iOS), FCM (Android)&#xa;• SMS          → Twilio / Nexmo&#xa;• Email        → SendGrid / Mailchimp"
+      style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=left;fontSize=11;rounded=1;verticalAlign=top;"
+      vertex="1" parent="1">
+      <mxGeometry x="40" y="680" width="220" height="100" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>
